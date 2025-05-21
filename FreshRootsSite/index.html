@@ -1,0 +1,132 @@
+<<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fresh Roots - Irrigação Automática</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #f5f5f5; color: #333; }
+    header { background: #2c7a7b; color: white; padding: 1.5rem 2rem; text-align: center; }
+    section { padding: 2rem; max-width: 900px; margin: auto; }
+    h2 { color: #2c7a7b; }
+    nav { background: #285e61; padding: 0.5rem; text-align: center; }
+    nav a { color: white; margin: 0 1rem; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 1rem; }
+    .team-photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    footer { background: #2c7a7b; color: white; text-align: center; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fresh Roots</h1>
+    <p>Um sistema de irrigação automatizado com Arduino</p>
+  </header>
+
+  <nav>
+    <a href="#descricao">Descrição</a>
+    <a href="#componentes">Componentes</a>
+    <a href="#montagem">Como Montar</a>
+    <a href="#codigo">Código</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#quemsomos">Quem Somos</a>
+    <a href="#objetivo">Nosso Objetivo</a>
+  </nav>
+
+  <section id="descricao">
+    <h2>Descrição</h2>
+    <p>O Fresh Roots é um sistema de irrigação inteligente baseado em Arduino Nano, que ativa uma bomba d'água automaticamente quando a temperatura ultrapassa 30 °C. Ideal para hortas e jardins, ele ajuda a conservar água e manter suas plantas saudáveis.</p>
+  </section>
+
+  <section id="componentes">
+    <h2>Componentes Utilizados</h2>
+    <ul>
+      <li>Arduino Nano</li>
+      <li>Sensor DHT11 (Temperatura e Umidade)</li>
+      <li>Módulo Relé de 1 canal (5V)</li>
+      <li>Bomba d'água 12V ou válvula solenoide</li>
+      <li>Fonte 12V (para bomba)</li>
+      <li>Fonte 5V (para Arduino)</li>
+      <li>Protoboard</li>
+      <li>Cabos jumper</li>
+      <li>Mangueira de irrigação</li>
+    </ul>
+  </section>
+
+  <section id="montagem">
+    <h2>Como Montar</h2>
+    <p>Monte o circuito conectando o sensor DHT11 ao pino D2 do Arduino, o módulo relé ao pino D3, e conecte a bomba d'água através do relé. O Arduino será alimentado por uma fonte 5V e a bomba por uma fonte de 12V. Você pode ver o diagrama abaixo:</p>
+    <img src="diagrama.png" alt="Diagrama do Circuito" />
+  </section>
+
+  <section id="codigo">
+    <h2>Código Arduino</h2>
+    <pre><code>#include &lt;DHT.h&gt;
+#define DHTPIN 2
+#define RELAY_PIN 3
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, LOW);
+}
+void loop() {
+  delay(2000);
+  float temperature = dht.readTemperature();
+  if (temperature &gt; 30.0) {
+    digitalWrite(RELAY_PIN, HIGH);
+  } else {
+    digitalWrite(RELAY_PIN, LOW);
+  }
+}</code></pre>
+  </section>
+
+  <section id="galeria">
+    <h2>Galeria do Projeto</h2>
+    <img src="foto1.jpg" alt="Montagem do Projeto" />
+    <img src="foto2.jpg" alt="Sistema Instalado" />
+  </section>
+
+  <section id="quemsomos">
+    <h2>Quem Somos</h2>
+    <p>Somos uma equipe apaixonada por tecnologia e sustentabilidade. Unimos nossos conhecimentos para criar soluções que ajudam o meio ambiente e facilitam o dia a dia das pessoas.</p>
+    <div class="team-photos">
+      <div style="text-align: center;">
+        <img src="foto Jean.jfif" alt="Integrante 1">
+        <p>Jean Tabosa</p>
+      </div>
+      <div style="text-align: center;">
+        <img src="foto gugu.jfif" alt="Integrante 2">
+        <p>Gustavo Caetano</p>
+      </div>
+      <div style="text-align: center;">
+        <img src="foto ingrid.jfif" alt="Integrante 3">
+        <p>Ingrid De Brito</p>
+      </div>
+      <div style="text-align: center;">
+        <img src="foto matheus.jfif" alt="Integrante 4">
+        <p>Matheus Souza</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulacao">
+  <h2>Simulação do Circuito</h2>
+  <p>Veja abaixo a simulação interativa do nosso sistema de irrigação no Tinkercad:</p>
+ <iframe width="760" height="500" src="https://www.tinkercad.com/embed/0T42fPUedeE?sharecode=KT_mKMmU_FJfBP8PVvjiyqPaqvjO8TSkja2fTiH0Etg" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+
+</section>
+
+  <section id="objetivo">
+    <h2>Nosso Objetivo</h2>
+    <p>Nosso objetivo com o projeto Fresh Roots é oferecer uma alternativa simples, econômica e eficiente para irrigação automatizada, promovendo o uso consciente da água e incentivando práticas sustentáveis na agricultura urbana e doméstica.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Fresh Roots. por Jean Tabosa</p>
+  </footer>
+</body>
+</html>
+
